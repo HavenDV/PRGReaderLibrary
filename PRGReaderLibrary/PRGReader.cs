@@ -1,4 +1,6 @@
-﻿namespace PRGReaderLibrary
+﻿using System.Linq;
+
+namespace PRGReaderLibrary
 {
     using System;
     using System.IO;
@@ -42,8 +44,8 @@
                     //float coef = (float)length/20.;
 
                     var ltot = 0L;
-                    var max_prg = 0;
-                    var max_grp = 0;
+                    var maxPrg = 0;
+                    var maxGrp = 0;
 
                     for (var i = Constants.OUT; i <= Constants.UNIT; ++i)
                     {
@@ -66,11 +68,12 @@
                         {
                             if (prg.Version < 216)
                             {
-                                prg.AlarmSize = reader.ReadUInt16();
-                                prg.AlarmCount = reader.ReadUInt16();
-                                for (var j = 0; j < prg.AlarmCount; ++j)
+                                var size = reader.ReadUInt16();
+                                var count = reader.ReadUInt16();
+                                for (var j = 0; j < count; ++j)
                                 {
-                                    prg.AlarmData[j] = reader.ReadChars(prg.AlarmSize);
+                                    var data = reader.ReadChars(size);
+                                    prg.Infos.Add(data);
                                 }
                                 continue;
                             }
@@ -79,17 +82,70 @@
                         {
                             var size = reader.ReadUInt16();
                             var count = reader.ReadUInt16();
-                            if (i == Constants.PRG || i == Constants.GRP)
+                            if (i == Constants.PRG)
                             {
-                                max_prg = size;
+                                maxPrg = size;
+                            }
+                            if (i == Constants.GRP)
+                            {
+                                maxGrp = size;
                             }
                             //if (count == info[i].str_size)
                             {
-                               // fread(info[i].address, nitem, l, h);
+                                // fread(info[i].address, nitem, l, h);
                             }
-
+                            for (var j = 0; j < count; ++j)
+                            {
+                                var data = reader.ReadChars(size);
+                                prg.Infos.Add(data);
+                            }
+                            //Console.WriteLine(string.Join(Environment.NewLine,
+                            //    prg.Alarms.Select(c=>new string(c)).Where(c => !string.IsNullOrWhiteSpace(c))));
                             ltot += size * count + 2;
                         }
+                    }
+
+                    //var l = Math.Min(maxPrg, tbl_bank[PRG]);
+                    for (var i = 0; i < maxPrg; ++i)
+                    {
+                        var size = reader.ReadUInt16();
+                        var data = reader.ReadBytes(size);
+                        ltot += size + 2;
+
+                        prg.PrgData.Add(PRGData.FromBytes(data));
+                    }
+
+                    foreach (var data in prg.PrgData)
+                    {
+                        Console.WriteLine(data.ToString());
+                    }
+
+                    {
+                        var size = reader.ReadUInt16();
+                        prg.WrTimes = reader.ReadBytes(size);
+                    }
+
+                    {
+                        var size = reader.ReadUInt16();
+                        prg.ArDates = reader.ReadBytes(size);
+                    }
+
+                    {
+                        var size = reader.ReadUInt16();
+                    }
+
+                    for (var i = 0; i < maxGrp; ++i)
+                    {
+                        var size = reader.ReadUInt16();
+                        var data = reader.ReadBytes(size);
+                        ltot += size + 2;
+
+                        prg.GrpData.Add(data);
+                    }
+
+                    {
+                        var size = reader.ReadUInt16();
+                        prg.IconNameTable = reader.ReadBytes(size);
                     }
 
                     return prg;

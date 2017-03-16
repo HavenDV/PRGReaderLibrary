@@ -43,6 +43,7 @@
     <Compile Include="Constants.cs" />
     <Compile Include="PanelInfo1.cs" />
     <Compile Include="PRG.cs" />
+    <Compile Include="PRGData.cs" />
     <Compile Include="PRGReader.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
