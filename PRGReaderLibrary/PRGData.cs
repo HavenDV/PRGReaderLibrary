@@ -1,7 +1,7 @@
-﻿using System;
-
-namespace PRGReaderLibrary
+﻿namespace PRGReaderLibrary
 {
+    using System;
+
     public class PRGData
     {
         public int TypeSize { get; set; }
@@ -74,12 +74,6 @@ namespace PRGReaderLibrary
             return prgData;
         }
 
-        public override string ToString()
-        {
-            return $@"PRGData:
-{nameof(TypeSize)}: {TypeSize}
-{nameof(Size1)}: {Size1}
-{nameof(IsEmpty)}: {IsEmpty}";
-        }
+        public override string ToString() => StringUtilities.ObjectToString(this);
     }
 }

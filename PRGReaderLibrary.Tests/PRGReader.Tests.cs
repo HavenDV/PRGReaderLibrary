@@ -21,7 +21,7 @@ namespace PRGReaderLibrary.Tests
         {
             var prg = PRG.Load(GetFullPath("asy1.prg"));
 
-            Console.WriteLine(prg.GetInfoString());
+            Console.WriteLine(prg.ToString());
         }
 
         [Test]
@@ -37,7 +37,7 @@ namespace PRGReaderLibrary.Tests
         {
             var prg = PRG.Load(GetFullPath("panel1.prg"));
 
-            Console.WriteLine(prg.GetInfoString());
+            Console.WriteLine(prg.ToString());
         }
 
         [Test]
@@ -45,7 +45,7 @@ namespace PRGReaderLibrary.Tests
         {
             var prg = PRG.Load(GetFullPath("panel11.prg"));
 
-            Console.WriteLine(prg.GetInfoString());
+            Console.WriteLine(prg.ToString());
         }
 
         [Test]
@@ -53,7 +53,7 @@ namespace PRGReaderLibrary.Tests
         {
             var prg = PRG.Load(GetFullPath("panel2.prg"));
 
-            Console.WriteLine(prg.GetInfoString());
+            Console.WriteLine(prg.ToString());
         }
 
         [Test]
@@ -61,7 +61,7 @@ namespace PRGReaderLibrary.Tests
         {
             var prg = PRG.Load(GetFullPath("temco.prg"));
 
-            Console.WriteLine(prg.GetInfoString());
+            Console.WriteLine(prg.ToString());
         }
 
         [Test]

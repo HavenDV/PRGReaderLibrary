@@ -1,6 +1,4 @@
-﻿using System.Linq;
-
-namespace PRGReaderLibrary
+﻿namespace PRGReaderLibrary
 {
     using System;
     using System.IO;
@@ -24,7 +22,7 @@ namespace PRGReaderLibrary
                     prg.Signature = new string(reader.ReadChars(4));
                     if (!prg.Signature.Equals(Constants.Signature, StringComparison.Ordinal))
                     {
-                        throw new Exception($"File corrupted. {prg.GetInfoString()}");
+                        throw new Exception($"File corrupted. {prg.ToString()}");
                     }
 
                     prg.PanelNumber = reader.ReadUInt16();
@@ -35,7 +33,7 @@ namespace PRGReaderLibrary
 
                     if (prg.Version < 210 || prg.Version == 0x2020)
                     {
-                        throw new Exception($"File not loaded. File version less than 2.10. {prg.GetInfoString()}");
+                        throw new Exception($"File not loaded. File version less than 2.10. {prg.ToString()}");
                     }
 
                     prg.Lenght = stream.Length;
@@ -58,7 +56,7 @@ namespace PRGReaderLibrary
                         {
                             if (prg.Version < 230 && prg.MiniVersion >= 230)
                             {
-                                throw new Exception($"Versions conflict! {prg.GetInfoString()}");
+                                throw new Exception($"Versions conflict! {prg.ToString()}");
                             }
                             if (prg.Version >= 230 && prg.MiniVersion > 0)
                                 continue;
