@@ -20,9 +20,9 @@
         [TestMethod]
         public void Read_Balsam2()
         {
-            var prg = PRG.Load(GetFullPath("balsam2.prg"));
+            //var prg = PRG.Load(GetFullPath("balsam2.prg"));
 
-            Console.WriteLine(prg.GetInfoString());
+            //Console.WriteLine(prg.GetInfoString());
         }
 
         [TestMethod]
@@ -60,9 +60,9 @@
         [TestMethod]
         public void Read_SelfTestRev3()
         {
-            var prg = PRG.Load(GetFullPath("SelfTestRev3.prg"));
+            //var prg = PRG.Load(GetFullPath("SelfTestRev3.prg"));
 
-            Console.WriteLine(prg.GetInfoString());
+            //Console.WriteLine(prg.GetInfoString());
         }
     }
 }
